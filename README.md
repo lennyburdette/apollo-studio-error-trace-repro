@@ -1,14 +1,16 @@
-# Error Reporting Outside of Tracing Reproduction
+# Reproduction: Error Reporting Outside of Tracing
 
 This repo demonstrates that errors end up in Studio only if they occur during
-field resolution. Altering errors in `formatResponse` does not affect how Studio
-records errors.
+field resolution.
 
-It's a bit surprising that errors in the `errors` array of the GraphQL response
-doesn't end up in Studio. Especially since the Gateway sees errors from
-downstream subgraph services and could instrument them for error reporting.
+In the [missions code][code] I'm collecting errors on the context object and
+adding them to the response in `formatResponse`. These errors don't end up in
+Studio, so it appears that the Gateway doesn't instrument the `errors` array
+in responses from downstream services.
 
-It seems to be possible to not send errors from Studio by using `rewriteError`
+[code]:https://github.com/lennyburdette/apollo-studio-error-trace-repro/blob/main/services/missions/index.js#L30
+
+It does seem possible to avoid sending errors from Studio by using `rewriteError`
 in the `ApolloServerPluginInlineTrace` plugin in subgraphs.
 
 ```
@@ -43,5 +45,8 @@ View errors in studio:
 open https://studio.apollographql.com/graph/$GRAPH_NAME/operations?tab=errors&variant=current
 ```
 
-Note that "Crew error to be removed" appears, whereas "Vehicle error to be added
-later" does not appear.
+Note that "Vehicle error to be added later" does not appear. You can get "Crew
+error to be removed" to appear in Studio if you remove the [options passed][options]
+to the inline tracing plugin.
+
+[options]:https://github.com/lennyburdette/apollo-studio-error-trace-repro/blob/main/services/missions/index.js#L51-L55
