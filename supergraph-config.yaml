@@ -1,0 +1,13 @@
+subgraphs:
+  astronauts:
+    routing_url: http://astronauts:4000/
+    schema:
+      file: ./services/astronauts/schema.graphql
+  missions:
+    routing_url: http://missions:4000/
+    schema:
+      file: ./services/missions/schema.graphql
+  vehicles:
+    routing_url: http://vehicles:4000/
+    schema:
+      file: ./services/vehicles/schema.graphql

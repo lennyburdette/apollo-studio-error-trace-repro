@@ -1,0 +1,9 @@
+type Vehicle @key(fields: "id") {
+  id: ID!
+  model: String
+}
+
+extend type Query {
+  vehicle(id: ID!): Vehicle
+  vehicles: [Vehicle]
+}

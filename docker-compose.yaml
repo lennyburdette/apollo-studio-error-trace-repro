@@ -1,0 +1,29 @@
+services:
+  gateway:
+    image: ghcr.io/apollosolutions/gateway
+    volumes:
+      - ./supergraph.graphql:/etc/config/supergraph.graphql
+    environment:
+      - APOLLO_KEY
+      - APOLLO_GRAPH_REF
+      - APOLLO_SCHEMA_CONFIG_EMBEDDED=/etc/config/supergraph.graphql
+    ports:
+      - 4000:4000
+  astronauts:
+    build: ./
+    volumes:
+      - ./services/astronauts:/web/src
+    ports:
+      - 4001:4000
+  missions:
+    build: ./
+    volumes:
+      - ./services/missions:/web/src
+    ports:
+      - 4002:4000
+  vehicles:
+    build: ./
+    volumes:
+      - ./services/vehicles:/web/src
+    ports:
+      - 4003:4000
