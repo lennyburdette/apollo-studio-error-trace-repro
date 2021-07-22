@@ -10,8 +10,8 @@ in responses from downstream services.
 
 [code]:https://github.com/lennyburdette/apollo-studio-error-trace-repro/blob/main/services/missions/index.js#L30
 
-It does seem possible to avoid sending errors from Studio by using `rewriteError`
-in the `ApolloServerPluginInlineTrace` plugin in subgraphs.
+It does appear possible to avoid sending errors instrumented during field resolution
+to Studio by using `rewriteError` in the `ApolloServerPluginInlineTrace` plugin in subgraphs.
 
 ```
 export APOLLO_KEY=<your api key>
