@@ -7,16 +7,16 @@ type Mission {
   vehicle: Vehicle!
 }
 
-extend type Astronaut @key(fields: "id") {
-  id: ID! @external
+type Astronaut {
+  id: ID!
   missions: [Mission]
 }
 
-extend type Vehicle @key(fields: "id") {
-  id: ID! @external
+type Vehicle {
+  id: ID!
 }
 
-extend type Query {
+type Query {
   mission(id: ID!): Mission
   missions: [Mission]
 }
